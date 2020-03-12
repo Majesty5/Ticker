@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class Ticker extends Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+    }
+  }
+    componentDidMount() {
+      setInterval (() =>{
+        this.setState({
+          count: this.state.count +1
+        })
+      }, 1000)
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+      console.log (nextState.count);
+        if(nextState.count % 3 === 0) return true;
+        else return false;
+      }
+
+
+  render() {
+    return (
+        <div><center><h1> Current Status of the Ticker: <span>{this.state.count} </span></h1></center>
+        <center> <button onClick={() =>this.setState({count:0})} type="button">Reset Count</button></center> 
+        </div>
+
+
+
+
+    );
+  }
+
 }
 
-export default App;
+
+
+export default Ticker;
